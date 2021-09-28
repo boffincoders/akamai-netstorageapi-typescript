@@ -1,5 +1,5 @@
 {
-  "name": "akamai-netstorageapi",
+  "name": "ts-netstorageapi-akamai",
   "version": "1.0.3",
   "description": "",
   "main": "./dist/netstorage.js",

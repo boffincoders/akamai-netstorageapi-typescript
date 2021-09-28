@@ -1,8 +1,6 @@
-# akamai-netstorageapi-typescript
+# Akamai Netstorage Typescript (UNOFFICIAL)
 
-Akamai Netstorage Typescript (UNOFFICIAL)
-
-This is a complete typescript rewirte of a official NodeJS package for Akamai Netstorage
+This is a complete typescript rewirte of a official NodeJS package for Akamai Netstorage([netstorageapi](https://www.npmjs.com/package/netstorageapi)) with added support of download and upload via buffer and async methods to avoid callback way. You can still use callback methods as well in same way.
 
 # Table of Contents
 
