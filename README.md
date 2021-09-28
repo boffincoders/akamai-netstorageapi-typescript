@@ -706,4 +706,4 @@ ns.uploadBufferAsync(LOCAL_SOURCE, NETSTORAGE_DESTINATION)
 # Author
 
 Boffin Coders (info@boffincoders.com)  
-Thanks to Astin Choi (achoi@akamai.com) as well for writing the origianl lib.
+Thanks to Astin Choi (achoi@akamai.com) as well for writing the original lib.
