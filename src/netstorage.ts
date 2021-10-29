@@ -41,7 +41,7 @@ type DirListOpts = {
 };
 
 class Netstorage {
-  requestor: APIRequest;
+  private requestor: APIRequest;
   constructor(netstorageOpts: AkamaiConfig) {
     if (!(netstorageOpts.hostname && netstorageOpts.keyName && netstorageOpts.key)) {
       throw new Error("[Netstorage Error] You should input netstorage hostname, keyname and key all");
