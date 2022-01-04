@@ -42,22 +42,20 @@ This is a complete typescript rewirte of a official NodeJS package for Akamai Ne
 
 # Installation
 
-To install Netstorage API with npm global:
+To install Netstorage API for your project:
 
 ```Shell
-$ npm install --global netstorageapi
-```
-
-or as a development dependency for your project:
-
-```Shell
-$ npm install --save netstorageapi
+$ npm i ts-netstorageapi-akamai
 ```
 
 # Example
 
 ```Javascript
-const Netstorage = require('netstorageapi')
+const Netstorage = require('ts-netstorageapi-akamai')
+
+OR
+
+import Netstorage from "ts-netstorageapi-akamai";
 
 // Defaults: SSL: false
 // By default no proxy is set
