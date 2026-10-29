@@ -1,16 +1,35 @@
 {
   "name": "ts-netstorageapi-akamai",
-  "version": "1.0.4",
-  "description": "",
+  "version": "1.1.0",
+  "description": "TypeScript client for the Akamai NetStorage HTTP API with promises and callbacks: upload and download (file or buffer), dir, list, du, stat, mkdir, rmdir, rename, symlink, mtime, delete, quick-delete.",
   "main": "./dist/netstorage.js",
   "types": "./dist/netstorage.d.ts",
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "build": "tsc"
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc -p tsconfig.build.json && tsc -p tsconfig.types.json",
+    "test": "vitest run",
+    "docs": "typedoc",
+    "prepublishOnly": "npm run build && npm test",
+    "assets": "node scripts/readme-assets/build.mjs",
+    "site": "node website/build.mjs"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/boffincoders/akamai-netstorageapi-typescript.git"
   },
+  "bugs": {
+    "url": "https://github.com/boffincoders/akamai-netstorageapi-typescript/issues"
+  },
+  "homepage": "https://boffincoders.com/open-source/akamai-netstorage-typescript",
   "keywords": [
     "akamai",
     "netstorage",
@@ -21,16 +40,36 @@
     "netstorage typings",
     "netstorage async",
     "filestore",
-    "objectstore"
+    "objectstore",
+    "typescript",
+    "netstorageapi",
+    "netstorage-api",
+    "akamai-netstorage-api",
+    "netstorage client",
+    "cdn",
+    "upload",
+    "download",
+    "promise",
+    "sdk"
   ],
-  "author": "Boffin Coders <info@boffincoders.com>",
+  "author": {
+    "name": "Boffin Coders",
+    "url": "https://boffincoders.com"
+  },
   "license": "MIT",
   "dependencies": {
-    "https-proxy-agent": "^5.0.0",
-    "lodash": "^4.17.21",
-    "xml2js": "^0.4.23"
+    "https-proxy-agent": "^5.0.1",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
-    "@types/xml2js": "^0.4.9"
+    "@types/node": "^20.19.43",
+    "@types/xml2js": "^0.4.14",
+    "typedoc": "^0.28.20",
+    "typescript": "~5.9.3",
+    "vite": "^6.4.5",
+    "vitest": "^4.1.12"
+  },
+  "bin": {
+    "akamai-netstorage": "dist/cli.js"
   }
 }

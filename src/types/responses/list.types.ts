@@ -1,4 +1,4 @@
-type ListResponseFile = {
+export type ListResponseFile = {
   type: string;
   name: string;
   size: string;
@@ -6,11 +6,11 @@ type ListResponseFile = {
   mtime: string;
 };
 
-type ListResponseResume = {
+export type ListResponseResume = {
   start: string;
 };
 
-type ListResponseList = {
+export type ListResponseList = {
   file: ListResponseFile[];
   resume: ListResponseResume[];
 };

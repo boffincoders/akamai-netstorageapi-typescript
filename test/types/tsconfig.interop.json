@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "target": "ES2022",
+    "types": [],
+    "baseUrl": ".",
+    "paths": { "ts-netstorageapi-akamai": ["../../dist/netstorage"], "ts-netstorageapi-akamai/*": ["../../*"] }
+  },
+  "files": ["consumer.ts"]
+}

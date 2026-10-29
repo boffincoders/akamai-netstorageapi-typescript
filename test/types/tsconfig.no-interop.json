@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.interop.json",
+  "compilerOptions": { "esModuleInterop": false, "allowSyntheticDefaultImports": true }
+}

@@ -1,5 +1,5 @@
 import fs from "fs";
-import http from "http";
+import http, { ClientRequest } from "http";
 import https, { RequestOptions } from "https";
 import * as HttpsProxyAgent from "https-proxy-agent";
 import path from "path";
@@ -24,7 +24,9 @@ class Requestor {
     });
     this.parser = new Parser();
     if (requestorOptions.proxy) {
-      this.agent = new HttpsProxyAgent.HttpsProxyAgent(requestorOptions.proxy.toString());
+      // Loaded only when a proxy is configured, so other users never pay its load time.
+      const proxyAgent: typeof HttpsProxyAgent = require("https-proxy-agent");
+      this.agent = new proxyAgent.HttpsProxyAgent(requestorOptions.proxy.toString());
     }
     this.requestorOptions = requestorOptions;
   }
@@ -45,10 +47,11 @@ class Requestor {
         "Accept-Encoding": "identity",
         "User-Agent": "NetStorageKit-Node",
       },
-      ...(this.agent && { agent: this.agent }),
+      ...(this.agent && { agent: this.agent as unknown as http.Agent }),
     };
 
     let request = (this.requestorOptions.ssl ? https : http).request(options, (res) => {
+      this.onIncompleteResponse(res, (err) => callback(err, null, null));
       let rawData = "";
       res.setEncoding("binary");
       res
@@ -62,7 +65,7 @@ class Requestor {
               callback(new Error("[Netstorage Error] Nestorage Path should be a file, not directory"), null, null);
               return;
             } else if (requestArgs.buffer) return callback(null, res as T, { buffer: rawData as T, message: "Download Done." } as U);
-            else if (local_destination == "") {
+            else if (!local_destination) {
               local_destination = path.basename(requestArgs.path);
             } else {
               try {
@@ -96,11 +99,10 @@ class Requestor {
     });
 
     if (requestArgs.action == "upload") {
-      try {
-        if (requestArgs.buffer) request.write(requestArgs.source);
-        else request.write(fs.readFileSync(requestArgs.source));
-      } catch (err) {
-        callback(err, null, null);
+      const uploadError = this.writeUploadBody(request, requestArgs);
+      if (uploadError) {
+        callback(uploadError, null, null);
+        return;
       }
     }
     request.end();
@@ -122,11 +124,12 @@ class Requestor {
         "Accept-Encoding": "identity",
         "User-Agent": "NetStorageKit-Node",
       },
-      ...(this.agent && { agent: this.agent }),
+      ...(this.agent && { agent: this.agent as unknown as http.Agent }),
     };
     let isSSL = this.requestorOptions.ssl;
     return new Promise<T>((resolve, reject) => {
       let request = (isSSL ? https : http).request(options, (res) => {
+        this.onIncompleteResponse(res, reject);
         let rawData = "";
         res.setEncoding("binary");
         res
@@ -140,7 +143,7 @@ class Requestor {
                 reject(new Error("[Netstorage Error] Nestorage Path should be a file, not directory"));
                 return;
               } else if (requestArgs.buffer) return resolve({ buffer: rawData as T, message: "Download Done." } as T);
-              else if (local_destination == "") {
+              else if (!local_destination) {
                 local_destination = path.basename(requestArgs.path);
               } else {
                 try {
@@ -173,16 +176,45 @@ class Requestor {
       });
 
       if (requestArgs.action == "upload") {
-        try {
-          if (requestArgs.buffer) request.write(requestArgs.source);
-          else request.write(fs.readFileSync(requestArgs.source));
-        } catch (err) {
-          reject(err);
+        const uploadError = this.writeUploadBody(request, requestArgs);
+        if (uploadError) {
+          reject(uploadError);
+          return;
         }
       }
       request.end();
     });
   };
+
+  // A connection that drops mid-response never emits "end", which used to leave the caller
+  // waiting forever. Report it once instead. Registered before the other "end" listener,
+  // so a completed response is never reported as incomplete.
+  private onIncompleteResponse(res: http.IncomingMessage, report: (err: Error) => void) {
+    let settled = false;
+    res.on("end", () => (settled = true));
+    const fail = (err?: Error) => {
+      if (settled) return;
+      settled = true;
+      report(err || Object.assign(new Error("[Netstorage Error] Connection closed before the response was complete"), { code: "ECONNRESET" }));
+    };
+    res.on("error", (err) => fail(err));
+    res.on("close", () => fail());
+  }
+
+  // Writes the upload body and returns the error, if any. On failure the request is
+  // aborted instead of ended, so it never sends an empty PUT over the destination file.
+  private writeUploadBody(request: ClientRequest, requestArgs: APIRequestArgs<string>): any {
+    try {
+      if (requestArgs.buffer) request.write(requestArgs.source);
+      else request.write(fs.readFileSync(requestArgs.source));
+      return null;
+    } catch (err) {
+      request.removeAllListeners("error");
+      request.on("error", () => {});
+      request.destroy();
+      return err;
+    }
+  }
 
   validatePath(path): string {
     if (!path.startsWith("/")) {

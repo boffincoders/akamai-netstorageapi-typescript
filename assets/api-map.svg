@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="476" viewBox="0 0 1000 476" role="img" aria-labelledby="t d">
+<title id="t">ts-netstorageapi-akamai operations</title>
+<desc id="d">Transfer: upload, uploadBuffer, download, downloadBuffer. Browse: dir, list, du, stat. Manage: mkdir, rmdir, rename, symlink, mtime, delete, quickDelete. Each has a callback form and a promise form ending in Async.</desc>
+<style>
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } .cover, .motion { display: none; } }
+</style>
+<rect width="1000" height="476" rx="14" fill="#0b1220"/>
+<rect x="0.5" y="0.5" width="999" height="475" rx="14" fill="none" stroke="#24314d"/>
+<text x="20" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#e6edf6">15 operations, each as a callback and a promise</text>
+<text x="20" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#8b9bb4">Every method has an Async twin, and every response has a TypeScript type.</text>
+<rect x="16" y="84" width="312" height="272" rx="10" fill="#111a2e" stroke="#24314d" stroke-width="1.5"/>
+<rect x="16" y="84" width="312" height="4" rx="2" fill="#34d3b4"/>
+<text x="32" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#34d3b4">Transfer</text>
+<text x="312" y="116" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11.5" fill="#8b9bb4">name() · nameAsync()</text>
+<text x="32" y="150" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">upload</text>
+<text x="312" y="150" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">local file → NetStorage</text>
+<text x="32" y="180" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">uploadBuffer</text>
+<text x="312" y="180" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">Buffer → NetStorage</text>
+<text x="32" y="210" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">download</text>
+<text x="312" y="210" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">NetStorage → local file</text>
+<text x="32" y="240" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">downloadBuffer</text>
+<text x="312" y="240" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">NetStorage → memory</text>
+<text x="32" y="312" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">Buffers go straight to and from</text>
+<text x="32" y="330" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">memory, with no temporary files.</text>
+<rect x="344" y="84" width="312" height="272" rx="10" fill="#111a2e" stroke="#24314d" stroke-width="1.5"/>
+<rect x="344" y="84" width="312" height="4" rx="2" fill="#6ea8fe"/>
+<text x="360" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#6ea8fe">Browse</text>
+<text x="640" y="116" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11.5" fill="#8b9bb4">name() · nameAsync()</text>
+<text x="360" y="150" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">dir</text>
+<text x="640" y="150" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">list one directory</text>
+<text x="360" y="180" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">list</text>
+<text x="640" y="180" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">list recursively, resumable</text>
+<text x="360" y="210" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">du</text>
+<text x="640" y="210" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">file count and bytes used</text>
+<text x="360" y="240" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">stat</text>
+<text x="640" y="240" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">file or directory details</text>
+<text x="360" y="312" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">Results are typed: DirResponse,</text>
+<text x="360" y="330" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">ListResponse, DuResponse, StatResponse.</text>
+<rect x="672" y="84" width="312" height="272" rx="10" fill="#111a2e" stroke="#24314d" stroke-width="1.5"/>
+<rect x="672" y="84" width="312" height="4" rx="2" fill="#f5b544"/>
+<text x="688" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#f5b544">Manage</text>
+<text x="968" y="116" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11.5" fill="#8b9bb4">name() · nameAsync()</text>
+<text x="688" y="150" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">mkdir</text>
+<text x="968" y="150" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">create a directory</text>
+<text x="688" y="180" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">rmdir</text>
+<text x="968" y="180" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">remove an empty directory</text>
+<text x="688" y="210" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">rename</text>
+<text x="968" y="210" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">rename or move a file</text>
+<text x="688" y="240" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">symlink</text>
+<text x="968" y="240" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">create a symlink</text>
+<text x="688" y="270" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">mtime</text>
+<text x="968" y="270" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">set modification time</text>
+<text x="688" y="300" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">delete</text>
+<text x="968" y="300" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">delete a file or symlink</text>
+<text x="688" y="330" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13.5" fill="#e6edf6">quickDelete</text>
+<text x="968" y="330" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">delete a whole tree</text>
+
+<rect x="16" y="374" width="476" height="78" rx="10" fill="#16223b" stroke="#24314d"/>
+<text x="32" y="400" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#8b9bb4">Callback</text>
+<text x="32" y="428" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" fill="#e6edf6">ns.stat(path, (err, res, body) =&gt; { … })</text>
+<rect x="508" y="374" width="476" height="78" rx="10" fill="#16223b" stroke="#24314d"/>
+<text x="524" y="400" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#8b9bb4">Promise</text>
+<text x="524" y="428" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="13" fill="#e6edf6">const { stat } = await ns.statAsync(path)</text>
+</svg>

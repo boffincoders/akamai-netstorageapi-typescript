@@ -1,3 +1,4 @@
+/// <reference types="node" preserve="true" />
 export type APIRequestArgs<A extends string> = {
   action:
     | "upload"
