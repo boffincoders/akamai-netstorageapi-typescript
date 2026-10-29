@@ -7,6 +7,10 @@ export const site = {
   repo: "https://github.com/boffincoders/akamai-netstorageapi-typescript",
   npm: "https://www.npmjs.com/package/ts-netstorageapi-akamai",
   tagline: "TypeScript client and CLI for the Akamai NetStorage HTTP API",
+  // Search: the home page leads with "akamai netstorage"; the meta description stays under ~160 characters.
+  homeTitle: "Akamai NetStorage client and CLI for Node.js and TypeScript | ts-netstorageapi-akamai",
+  homeDescription:
+    "Akamai NetStorage client and CLI for Node.js and TypeScript: typed access to the NetStorage HTTP API to upload, download, list and manage files.",
   // Other Boffin Coders open-source packages, linked from the footer and llms.txt.
   hub: "https://boffincoders.github.io/",
   siblings: [
@@ -47,7 +51,8 @@ export const methods = [
   {
     name: "upload",
     group: "transfer",
-    summary: "Upload a local file to NetStorage.",
+    summary: "Upload a local file to Akamai NetStorage.",
+    seoTitle: "Akamai NetStorage upload from Node.js: upload()",
     http: "PUT",
     action: "upload",
     params: [
@@ -76,7 +81,8 @@ export const methods = [
   {
     name: "uploadBuffer",
     group: "transfer",
-    summary: "Upload a Buffer, for content that never touches the disk.",
+    summary: "Upload a Buffer to Akamai NetStorage, for content that never touches the disk.",
+    seoTitle: "Akamai NetStorage upload from memory: uploadBuffer()",
     http: "PUT",
     action: "upload",
     params: [
@@ -367,5 +373,44 @@ console.log(file.size, file.md5);`,
     cli: "akamai-netstorage quick-delete cache --yes",
     notes: ["Akamai must enable quick-delete on the CP code first.", "This cannot be undone."],
     inputs: ["path"],
+  },
+];
+
+// Shown on the docs home (with FAQPage structured data) and in llms.txt.
+export const faq = [
+  {
+    q: "How do I upload a file to Akamai NetStorage from Node.js?",
+    a: "Create a client with your NetStorage hostname, key name and key, then call uploadAsync with the local path and the NetStorage path. A destination ending in / keeps the local file name.",
+    code: 'await ns.uploadAsync("./dist/app.js", "/123456/static/");',
+  },
+  {
+    q: "Is there a TypeScript client for Akamai NetStorage?",
+    a: "Yes. ts-netstorageapi-akamai ships types for the configuration, every method and every response, and each method has a promise form and a callback form.",
+    code: "npm install ts-netstorageapi-akamai",
+  },
+  {
+    q: "How do I migrate from netstorageapi?",
+    a: "The configuration, method names, arguments and callbacks match Akamai's netstorageapi, so usually only the import changes. The one renamed method is quick_delete, which is quickDelete here.",
+    code: 'const Netstorage = require("ts-netstorageapi-akamai").default;',
+  },
+  {
+    q: "How do I sign NetStorage API requests?",
+    a: "The client signs every request for you with HMAC-SHA256 (version 5) in the X-Akamai-ACS-Auth-Data and X-Akamai-ACS-Auth-Sign headers. Keep your clock within one minute of Akamai's time, or NetStorage answers 403.",
+    code: 'const ns = new Netstorage({ hostname, keyName, key, cpCode: "123456", ssl: true });',
+  },
+  {
+    q: "How do I upload a buffer to NetStorage without writing a temp file?",
+    a: "Use uploadBufferAsync with the Buffer, a file name and the NetStorage path; the content never touches the disk.",
+    code: 'await ns.uploadBufferAsync(Buffer.from(JSON.stringify(data)), "data.json", "/123456/api/");',
+  },
+  {
+    q: "Is there a command line tool for Akamai NetStorage?",
+    a: "Yes. The package installs akamai-netstorage, which reads the upload key from NETSTORAGE_KEY (never from a flag), takes the host and key name from the environment or from --host and --key-name, and supports ls, list, du, stat, upload, download, cat, mkdir, rmdir, rm, rename, symlink, mtime and quick-delete.",
+    code: "npx akamai-netstorage upload ./dist/app.js static/",
+  },
+  {
+    q: "Why does Akamai NetStorage return 403?",
+    a: "Usually the request signature failed: check that your clock is within one minute of Akamai's, that hostname, keyName and key are right, and that a new upload account has finished propagating, which can take up to 120 minutes.",
+    code: 'ns.stat("/123456/file.txt", (err, res) => console.log(res?.statusCode));',
   },
 ];

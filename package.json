@@ -45,6 +45,8 @@
     "netstorageapi",
     "netstorage-api",
     "akamai-netstorage-api",
+    "netstorage-http-api",
+    "netstorage-upload",
     "netstorage client",
     "cdn",
     "upload",

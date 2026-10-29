@@ -1,6 +1,6 @@
 # ts-netstorageapi-akamai
 
-TypeScript client and CLI for the [Akamai NetStorage HTTP API](https://techdocs.akamai.com/netstorage-usage/reference/api) in Node.js.
+Node.js and TypeScript client and CLI for the [Akamai NetStorage API](https://techdocs.akamai.com/netstorage-usage/reference/api) (the NetStorage HTTP API).
 
 Upload and download files or in-memory buffers, list and inspect directories, and manage files on NetStorage, with promises or callbacks, full type definitions and a command line tool.
 
@@ -328,7 +328,7 @@ const ns = new Netstorage({ ...config, proxy: "http://user:pass@proxy.internal:3
 
 ![Terminal session: upload a file, list a directory, show disk usage and download a file with the akamai-netstorage command](https://raw.githubusercontent.com/boffincoders/akamai-netstorageapi-typescript/master/assets/cli-demo.svg)
 
-The package installs an `akamai-netstorage` command. Credentials come from the environment, never from flags:
+The package installs an `akamai-netstorage` command. The upload key comes from the environment, never from a flag; host, key name and CP code can come from the environment or flags (`--host`, `--key-name`, `--cp-code`):
 
 ```bash
 export NETSTORAGE_HOST=example-nsu.akamaihd.net NETSTORAGE_KEYNAME=upload-user NETSTORAGE_KEY=... NETSTORAGE_CPCODE=123456

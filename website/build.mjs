@@ -9,7 +9,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { groups, methods, org, orgLink, site } from "./content.mjs";
+import { faq, groups, methods, org, orgLink, site } from "./content.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -132,6 +132,14 @@ function structuredData(file, fullTitle, description, canonical) {
         version: pkg.version,
         author: { "@id": orgNode["@id"] },
         maintainer: { "@id": orgNode["@id"] },
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faq.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: `${f.a} ${f.code}` },
+        })),
       }
     );
   } else {
@@ -147,11 +155,11 @@ function structuredData(file, fullTitle, description, canonical) {
   return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
 }
 
-function page({ file, title, description, body, current, docs = true, extraHead = "", scripts = [], base = "", noindex = false }) {
+function page({ file, title, seoTitle, description, body, current, docs = true, extraHead = "", scripts = [], base = "", noindex = false }) {
   const depth = file.split("/").length - 1;
   const r = depth ? "../".repeat(depth) : "./";
   const canonical = site.url + file.replace(/index\.html$/, "");
-  const fullTitle = file === "index.html" ? `${site.name}: ${site.tagline}` : `${title} · ${site.name}`;
+  const fullTitle = file === "index.html" ? site.homeTitle : `${seoTitle || title} · ${site.name}`;
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -198,7 +206,7 @@ ${extraHead}
 </header>
 ${docs ? `<div class="layout">${sidebar(r, current)}<main id="main" class="content">${body}</main></div>` : `<main id="main">${body}</main>`}
 <footer>
-<a class="footer-brand" href="${orgLink("/", "footer")}">${logo(r, "footer-logo")}<span>Built and maintained by Boffin Coders</span></a>
+<a class="footer-brand" href="${orgLink("/open-source/akamai-netstorage-typescript", "footer")}">${logo(r, "footer-logo")}<span>Built and maintained by Boffin Coders</span></a>
 <p>${esc(site.name)} ${esc(pkg.version)} · MIT licence · <a href="${site.repo}">GitHub</a> · <a href="${site.npm}">npm</a></p>
 <p>More open source by Boffin Coders: ${site.siblings.map((s) => `<a href="${s.url}">${s.name}</a>`).join(" · ")} · <a href="${site.hub}">All Boffin Coders open source</a></p>
 <p>Based on Akamai's open-source <a href="https://www.npmjs.com/package/netstorageapi">netstorageapi</a> by Astin Choi.</p>
@@ -211,7 +219,7 @@ ${scripts.map((s) => `<script src="${r}${s}"></script>`).join("\n")}
 </body>
 </html>
 `;
-  pages.push({ file, html });
+  pages.push({ file, html, title: file === "index.html" ? site.homeTitle : seoTitle || title, body });
   if (title && !noindex) searchIndex.push({ title, text: description, url: file.replace(/index\.html$/, "") });
 }
 
@@ -264,13 +272,13 @@ npx akamai-netstorage stat static/app.js` },
 page({
   file: "index.html",
   title: "",
-  description: site.description,
+  description: site.homeDescription,
   docs: false,
 
   body: `<section class="hero">
 <p class="eyebrow">Open source · MIT · Node.js 18+</p>
 <h1>Akamai NetStorage, <span class="accent">typed</span>.</h1>
-<p class="lead">A TypeScript client and CLI for the NetStorage HTTP API. Upload and download files or buffers, browse and manage directories, with promises or callbacks and a type for every response.</p>
+<p class="lead">A Node.js and TypeScript client and CLI for the Akamai NetStorage API (the NetStorage HTTP API). Upload and download files or buffers, browse and manage directories, with promises or callbacks and a type for every response.</p>
 <div class="hero-actions"><a class="btn primary" href="./basics/">New to NetStorage?</a><a class="btn" href="./guide/">Get started</a><a class="btn" href="./playground/">Open the playground</a><a class="btn" href="./api/">API reference</a></div>
 <div class="install"><span>npm install ts-netstorageapi-akamai</span><button type="button" data-copy="npm install ts-netstorageapi-akamai">Copy</button></div>
 <div class="badges"><span>CommonJS and ESM</span><span>2 runtime dependencies</span><span>npm audit: 0</span><span>Tested on Node 18–24</span></div>
@@ -300,8 +308,12 @@ ${comparison}
 </section>
 <section class="home-section">
 <h2>Fifteen operations</h2>
-<p class="lead">Every NetStorage action the client supports, each with its own page.</p>
+<p class="lead">The 13 NetStorage actions the client supports, as ${methods.length} methods with a page each.</p>
 ${groups.map((g) => `<h3>${g.title}</h3><div class="grid">${methods.filter((m) => m.group === g.id).map((m) => `<a class="card" href="./methods/${m.name}/"><h3 class="mono">${m.name} ${httpPill(m.http)}</h3><p>${inline(m.summary)}</p></a>`).join("")}</div>`).join("")}
+<h2 id="faq">Questions people ask</h2>
+<div class="faq">
+${faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p>${pre(f.code, f.code.startsWith("np") ? "bash" : "ts")}</details>`).join("\n")}
+</div>
 <section class="built-by">
 <img src="./brand/bc-gold.png" alt="Boffin Coders logo" width="56" height="56">
 <div>
@@ -507,6 +519,7 @@ methods.forEach((m, i) => {
     file: `methods/${m.name}/index.html`,
     current: `methods/${m.name}/`,
     title: `${m.name}()`,
+    seoTitle: m.seoTitle,
     description: `${m.summary} ${m.name} and ${m.name}Async in the TypeScript client for Akamai NetStorage: signature, parameters, example and response.`,
     body: `<p class="eyebrow">${groups.find((g) => g.id === m.group).title}</p>
 <h1><code>${m.name}</code> ${httpPill(m.http)}</h1>
@@ -544,7 +557,7 @@ page({
 <p class="lead">The package installs a command for scripts and CI. It has no extra dependencies.</p>
 ${figure("../", "cli-demo.svg", "Terminal session: upload a file, list a directory, show disk usage and download a file.")}
 <h2>Credentials</h2>
-<p>Credentials come from the environment, never from flags, so keys stay out of shell history and process lists.</p>
+<p>The upload key comes from the environment, never from a flag, so it stays out of shell history and process lists. Host, key name and CP code can come from the environment or from <code>--host</code>, <code>--key-name</code> and <code>--cp-code</code>.</p>
 ${pre(`export NETSTORAGE_HOST=example-nsu.akamaihd.net
 export NETSTORAGE_KEYNAME=upload-user
 export NETSTORAGE_KEY=...            # from your secret store
@@ -743,34 +756,102 @@ fs.writeFileSync(path.join(out, "search-index.js"), `window.NS_SEARCH=${JSON.str
   { title: "API reference", text: "Every class, method and type, generated from the source with TypeDoc.", url: "api/" },
 ])};\n`);
 fs.writeFileSync(path.join(out, ".nojekyll"), "");
+// llms.txt (llmstxt.org): a short brief for AI assistants, with every page as text in llms-full.txt.
 fs.writeFileSync(
   path.join(out, "llms.txt"),
   `# ${site.name}
 
-> ${site.description}
+> Akamai NetStorage client and CLI for Node.js and TypeScript. It wraps the Akamai NetStorage API (the NetStorage HTTP API) with typed, promise-based methods to upload, download, list and manage files, and keeps the configuration, method names and callbacks of Akamai's netstorageapi package.
 
-Maintained by Boffin Coders (${org.url}). ${org.description}
+Maintained by Boffin Coders (${org.url}). Every docs page as plain text: [llms-full.txt](${site.url}llms-full.txt).
+
+## Key facts
+
+- Install: \`npm install ${site.name}\` (version ${pkg.version}, MIT licence)
+- Runtime: Node.js ${pkg.engines.node}; type definitions included
+- Runtime dependencies: ${Object.keys(pkg.dependencies).join(" and ")}
+- Command line tool: \`akamai-netstorage\`, configured from NETSTORAGE_HOST, NETSTORAGE_KEYNAME and NETSTORAGE_KEY
+- Requests are signed for you with HMAC-SHA256 (version 5) in the X-Akamai-ACS-Auth-Data and X-Akamai-ACS-Auth-Sign headers
+- Tested against a mock NetStorage server on Node 18, 20, 22 and 24: ${site.repo}/actions/workflows/ci.yml
+- Drop-in for netstorageapi: usually only the import changes; quick_delete is quickDelete here
+
+## When to use it
+
+- Uploading build output, media or generated files to Akamai NetStorage from Node.js or a CI job
+- Uploading content held in memory (a Buffer) without writing a temp file
+- Listing, inspecting, renaming, symlinking and deleting files on NetStorage from code or a shell
+- Replacing netstorageapi in a TypeScript project that wants types and promises
+
+## When not to use it
+
+- Akamai Object Storage (Linode) is S3-compatible and is not covered; use an S3 client for it
+- Browsers: the client runs in Node.js and needs your NetStorage key, which must stay on the server
+- Directory sync, streaming and retries are not built in; you call one method per file
+
+## API
+
+Each method has a callback form and a promise form (the same name plus Async), on \`new Netstorage({ hostname, keyName, key, cpCode, ssl })\`.
+
+${methods.map((m) => `- [${m.name}](${site.url}methods/${m.name}/): ${m.summary} (${m.http})`).join("\n")}
+
+## FAQ
+
+${faq.map((f) => `### ${f.q}\n\n${f.a}\n\n\`${f.code}\``).join("\n\n")}
 
 ## Docs
 
+- [Home](${site.url})
 - [NetStorage basics](${site.url}basics/): endpoint, upload accounts and keys, request signing, limits and common errors
 - [Guide](${site.url}guide/): install, configure, promises and callbacks, responses and errors, proxy
-- [Methods](${site.url}methods/): ${methods.map((m) => m.name).join(", ")}
-- [Command line](${site.url}cli/): the akamai-netstorage CLI
+- [Methods](${site.url}methods/)
+- [Command line](${site.url}cli/)
 - [Migrating from netstorageapi](${site.url}migrate/)
+- [Upgrading to 1.1](${site.url}upgrade/)
 - [API reference](${site.url}api/)
+- [Full text of the docs](${site.url}llms-full.txt)
 
-## Links
+## Optional
 
 - npm: ${site.npm}
 - Source: ${site.repo}
 - Maintainer: ${org.url}
-
-## More open source by Boffin Coders
-
 ${site.siblings.map((s) => `- [${s.name}](${s.url}): ${s.summary}`).join("\n")}
 - [All Boffin Coders open source](${site.hub})
 `
+);
+
+// llms-full.txt: each page's main content as Markdown-like text, links made absolute.
+const decode = (t) =>
+  t.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&middot;/g, "·").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&");
+const abs = (href, file) => (/^[a-z]+:/i.test(href) || href.startsWith("#") ? href : new URL(href, site.url + file).href);
+const toText = (html, file) =>
+  decode(
+    html
+      .replace(/<(script|style|svg|form|button|select|textarea)[\s\S]*?<\/\1>/gi, "")
+      .replace(/<pre[^>]*>([\s\S]*?)<\/pre>/gi, (_, c) => `\n\n\`\`\`\n${c.replace(/<[^>]+>/g, "").trim()}\n\`\`\`\n\n`)
+      .replace(/<h([1-4])[^>]*>([\s\S]*?)<\/h\1>/gi, (_, n, t) => `\n\n${"#".repeat(Number(n) + 1)} ${t.replace(/<[^>]+>/g, "").trim()}\n\n`)
+      .replace(/<summary[^>]*>([\s\S]*?)<\/summary>/gi, "\n\n### $1\n\n")
+      .replace(/<a [^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi, (_, h, t) => `[${t.replace(/<[^>]+>/g, "").trim()}](${abs(h, file)}) `)
+      .replace(/<\/(span|strong|em|dt|dd)>(?=<)/gi, "</$1> ")
+      .replace(/<img [^>]*alt="([^"]*)"[^>]*>/gi, (_, a) => (a ? `[Image: ${a}]` : ""))
+      .replace(/<code>([\s\S]*?)<\/code>/gi, "`$1`")
+      .replace(/<li[^>]*>/gi, "\n- ")
+      .replace(/<\/(td|th)>/gi, " | ")
+      .replace(/<tr[^>]*>/gi, "\n| ")
+      .replace(/<(p|div|section|ul|ol|table|details|br)[^>]*>/gi, "\n\n")
+      .replace(/<[^>]+>/g, "")
+  )
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+fs.writeFileSync(
+  path.join(out, "llms-full.txt"),
+  `# ${site.name}: full documentation\n\n> ${site.homeDescription}\n\nSource: ${site.url} · Summary: ${site.url}llms.txt\n\n` +
+    pages
+      .filter((p) => p.file !== "404.html")
+      .map((p) => `---\n\n# ${p.title}\n\nURL: ${site.url}${p.file.replace(/index\.html$/, "")}\n\n${toText(p.body, p.file)}`)
+      .join("\n\n") +
+    "\n"
 );
 fs.writeFileSync(path.join(out, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${site.url}sitemap.xml\n`);
 const urls = [...pages.filter((p) => p.file !== "404.html").map((p) => p.file.replace(/index\.html$/, "")), "api/"];
