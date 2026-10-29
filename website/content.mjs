@@ -8,6 +8,7 @@ export const site = {
   npm: "https://www.npmjs.com/package/ts-netstorageapi-akamai",
   tagline: "TypeScript client and CLI for the Akamai NetStorage HTTP API",
   // Other Boffin Coders open-source packages, linked from the footer and llms.txt.
+  hub: "https://boffincoders.github.io/",
   siblings: [
     { name: "fundamental-analysis", url: "https://boffincoders.github.io/fundamental-analysis/", summary: "Financial ratios and fundamental analysis for JavaScript and TypeScript" },
     { name: "durable_queue", url: "https://boffincoders.github.io/durable_queue/", summary: "Persistent, retryable tasks for Dart and Flutter" },

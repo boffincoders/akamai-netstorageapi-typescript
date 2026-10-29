@@ -444,7 +444,7 @@ Tests run against a local mock NetStorage server; no Akamai account is needed. T
 
 [Boffin Coders](https://boffincoders.com/?utm_source=npm&utm_medium=readme&utm_campaign=ts-netstorageapi-akamai) designs and builds websites, web applications and mobile apps for businesses and agencies, and maintains this package as open source. Need Akamai NetStorage uploads, a media pipeline or a Node.js backend built for you? [Hire Node.js developers](https://boffincoders.com/hire/nodejs-developers?utm_source=npm&utm_medium=readme&utm_campaign=ts-netstorageapi-akamai) or [talk to us](https://boffincoders.com/contact-us?utm_source=npm&utm_medium=readme&utm_campaign=ts-netstorageapi-akamai).
 
-More open source by Boffin Coders: [fundamental-analysis](https://boffincoders.github.io/fundamental-analysis/) (financial ratios and fundamental analysis for JavaScript and TypeScript) · [durable_queue](https://boffincoders.github.io/durable_queue/) (persistent, retryable tasks for Dart and Flutter) · [all projects on GitHub](https://github.com/boffincoders).
+More open source by Boffin Coders: [fundamental-analysis](https://boffincoders.github.io/fundamental-analysis/) (financial ratios and fundamental analysis for JavaScript and TypeScript) · [durable_queue](https://boffincoders.github.io/durable_queue/) (persistent, retryable tasks for Dart and Flutter) · [All Boffin Coders open source](https://boffincoders.github.io/).
 
 ## Credits and license
 

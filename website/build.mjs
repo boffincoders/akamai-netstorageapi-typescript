@@ -200,7 +200,7 @@ ${docs ? `<div class="layout">${sidebar(r, current)}<main id="main" class="conte
 <footer>
 <a class="footer-brand" href="${orgLink("/", "footer")}">${logo(r, "footer-logo")}<span>Built and maintained by Boffin Coders</span></a>
 <p>${esc(site.name)} ${esc(pkg.version)} · MIT licence · <a href="${site.repo}">GitHub</a> · <a href="${site.npm}">npm</a></p>
-<p>More open source by Boffin Coders: ${site.siblings.map((s) => `<a href="${s.url}">${s.name}</a>`).join(" · ")} · <a href="https://github.com/boffincoders">all projects on GitHub</a></p>
+<p>More open source by Boffin Coders: ${site.siblings.map((s) => `<a href="${s.url}">${s.name}</a>`).join(" · ")} · <a href="${site.hub}">All Boffin Coders open source</a></p>
 <p>Based on Akamai's open-source <a href="https://www.npmjs.com/package/netstorageapi">netstorageapi</a> by Astin Choi.</p>
 <p>An independent open-source project, not affiliated with or endorsed by Akamai Technologies, Inc. Akamai and NetStorage are trademarks of Akamai Technologies, Inc.</p>
 </footer>
@@ -769,6 +769,7 @@ Maintained by Boffin Coders (${org.url}). ${org.description}
 ## More open source by Boffin Coders
 
 ${site.siblings.map((s) => `- [${s.name}](${s.url}): ${s.summary}`).join("\n")}
+- [All Boffin Coders open source](${site.hub})
 `
 );
 fs.writeFileSync(path.join(out, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${site.url}sitemap.xml\n`);
