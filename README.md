@@ -10,7 +10,7 @@ Upload and download files or in-memory buffers, list and inspect directories, an
 [![node: >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](#node-support)
 [![license: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-<img src="https://raw.githubusercontent.com/boffincoders/akamai-netstorageapi-typescript/master/assets/brand/bc-gold.png" alt="Boffin Coders logo" width="28" height="28"> Maintained by [Boffin Coders](https://boffincoders.com/open-source/akamai-netstorage-typescript?utm_source=npm&utm_medium=readme&utm_campaign=ts-netstorageapi-akamai).
+<img src="https://raw.githubusercontent.com/boffincoders/akamai-netstorageapi-typescript/master/assets/brand/bc-gold.png" alt="Boffin Coders logo" width="28" height="28"> Maintained by [Boffin Coders](https://boffincoders.com/open-source/ts-netstorageapi-akamai?utm_source=npm&utm_medium=readme&utm_campaign=ts-netstorageapi-akamai).
 
 **[Documentation](https://boffincoders.github.io/akamai-netstorageapi-typescript/)** · [Playground](https://boffincoders.github.io/akamai-netstorageapi-typescript/playground/) · [API reference](https://boffincoders.github.io/akamai-netstorageapi-typescript/api/)
 
