@@ -1,0 +1,19 @@
+/* Boffin Coders brand colours for the TypeDoc API reference. */
+:root {
+  --light-color-background: #ffffff;
+  --light-color-background-secondary: #fafaf7;
+  --light-color-accent: #e6e3da;
+  --light-color-active-menu-item: #fbf3d9;
+  --light-color-text: #0d0d0d;
+  --light-color-text-aside: #737373;
+  --light-color-link: #8a6500;
+  --light-color-focus-outline: #d4a012;
+  --dark-color-background: #0d0d0d;
+  --dark-color-background-secondary: #1a1a1a;
+  --dark-color-accent: #2a2a2a;
+  --dark-color-active-menu-item: #2a2108;
+  --dark-color-text: #ffffff;
+  --dark-color-text-aside: #a3a3a3;
+  --dark-color-link: #d4a012;
+  --dark-color-focus-outline: #d4a012;
+}
