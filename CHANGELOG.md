@@ -2,6 +2,14 @@
 
 All notable changes to this package are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] - 2026-10-29
+
+Documentation only. The code is the same as 1.1.0: the compiled files in the package are identical, so there is nothing to change or test when upgrading.
+
+### Changed
+
+- README: the Boffin Coders logo next to "Maintained by", an "About Boffin Coders" section with links to the maintainer and the sister package fundamental-analysis, and Node.js 24 in the list of versions tested in CI. The illustrations use the Boffin Coders colours.
+
 ## [1.1.0] - 2026-10-29
 
 A drop-in upgrade from 1.0.x: no method, argument, callback signature or return value has changed, and code that works with 1.0.4 keeps working. The full test suite was run against the published 1.0.4 code as well; results matched except for the fixes below. The README's [Upgrading from 1.0.x](README.md#upgrading-from-10x) section lists every difference and who could notice it.
@@ -43,5 +51,6 @@ If your app uses `lodash` without listing it in its own `package.json`, it may h
 
 Last release before this changelog. See the [git history](https://github.com/boffincoders/akamai-netstorageapi-typescript/commits/master).
 
+[1.1.1]: https://github.com/boffincoders/akamai-netstorageapi-typescript/releases/tag/v1.1.1
 [1.1.0]: https://github.com/boffincoders/akamai-netstorageapi-typescript/releases/tag/v1.1.0
 [1.0.4]: https://www.npmjs.com/package/ts-netstorageapi-akamai/v/1.0.4
