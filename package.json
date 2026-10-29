@@ -1,6 +1,6 @@
 {
   "name": "ts-netstorageapi-akamai",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "TypeScript client for the Akamai NetStorage HTTP API with promises and callbacks: upload and download (file or buffer), dir, list, du, stat, mkdir, rmdir, rename, symlink, mtime, delete, quick-delete.",
   "main": "./dist/netstorage.js",
   "types": "./dist/netstorage.d.ts",
