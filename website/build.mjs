@@ -206,7 +206,7 @@ ${extraHead}
 </header>
 ${docs ? `<div class="layout">${sidebar(r, current)}<main id="main" class="content">${body}</main></div>` : `<main id="main">${body}</main>`}
 <footer>
-<a class="footer-brand" href="${orgLink("/open-source/akamai-netstorage-typescript", "footer")}">${logo(r, "footer-logo")}<span>Built and maintained by Boffin Coders</span></a>
+<a class="footer-brand" href="${orgLink("/open-source/ts-netstorageapi-akamai", "footer")}">${logo(r, "footer-logo")}<span>Built and maintained by Boffin Coders</span></a>
 <p>${esc(site.name)} ${esc(pkg.version)} · MIT licence · <a href="${site.repo}">GitHub</a> · <a href="${site.npm}">npm</a></p>
 <p>More open source by Boffin Coders: ${site.siblings.map((s) => `<a href="${s.url}">${s.name}</a>`).join(" · ")} · <a href="${site.hub}">All Boffin Coders open source</a></p>
 <p>Based on Akamai's open-source <a href="https://www.npmjs.com/package/netstorageapi">netstorageapi</a> by Astin Choi.</p>

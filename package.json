@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/boffincoders/akamai-netstorageapi-typescript/issues"
   },
-  "homepage": "https://boffincoders.com/open-source/akamai-netstorage-typescript",
+  "homepage": "https://boffincoders.com/open-source/ts-netstorageapi-akamai",
   "keywords": [
     "akamai",
     "netstorage",
