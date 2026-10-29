@@ -7,7 +7,11 @@ export const site = {
   repo: "https://github.com/boffincoders/akamai-netstorageapi-typescript",
   npm: "https://www.npmjs.com/package/ts-netstorageapi-akamai",
   tagline: "TypeScript client and CLI for the Akamai NetStorage HTTP API",
-  sister: { name: "fundamental-analysis", url: "https://boffincoders.github.io/fundamental-analysis/" },
+  // Other Boffin Coders open-source packages, linked from the footer and llms.txt.
+  siblings: [
+    { name: "fundamental-analysis", url: "https://boffincoders.github.io/fundamental-analysis/", summary: "Financial ratios and fundamental analysis for JavaScript and TypeScript" },
+    { name: "durable_queue", url: "https://boffincoders.github.io/durable_queue/", summary: "Persistent, retryable tasks for Dart and Flutter" },
+  ],
   description:
     "Typed, promise-based Node.js client and CLI for the Akamai NetStorage HTTP API: upload and download files or buffers, dir, list, du, stat, mkdir, rmdir, rename, symlink, mtime, delete and quick-delete.",
 };
