@@ -1,8 +1,8 @@
-type DirResponseAttribs = {
+export type DirResponseAttribs = {
   directory: string;
 };
 
-type DirResponseFile = {
+export type DirResponseFile = {
   type: string;
   name: string;
   size?: string;
@@ -11,9 +11,11 @@ type DirResponseFile = {
   bytes?: string;
   files?: string;
   implicit?: string;
+  /** Link target, for entries of type "symlink". */
+  target?: string;
 };
 
-type DirResponseStat = {
+export type DirResponseStat = {
   attribs: DirResponseAttribs;
   file: DirResponseFile[];
 };

@@ -1,13 +1,13 @@
-type DuResponseAttribs = {
+export type DuResponseAttribs = {
   directory: string;
 };
 
-type DuResponseDuInfo = {
+export type DuResponseDuInfo = {
   files: string;
   bytes: string;
 };
 
-type DuResponseDu = {
+export type DuResponseDu = {
   attribs: DuResponseAttribs;
   "du-info": DuResponseDuInfo[];
 };

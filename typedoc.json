@@ -1,0 +1,25 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "src/netstorage.ts"
+  ],
+  "tsconfig": "tsconfig.json",
+  "out": "docs/api",
+  "name": "ts-netstorageapi-akamai",
+  "readme": "README.md",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "githubPages": true,
+  "navigationLinks": {
+    "GitHub": "https://github.com/boffincoders/akamai-netstorageapi-typescript",
+    "npm": "https://www.npmjs.com/package/ts-netstorageapi-akamai"
+  },
+  "highlightLanguages": [
+    "bash",
+    "diff",
+    "javascript",
+    "json",
+    "ts",
+    "typescript"
+  ]
+}

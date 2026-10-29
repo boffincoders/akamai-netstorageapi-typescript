@@ -118,3 +118,6 @@ dist
 .pnp.*
 dist
 docs/
+
+# Documentation site build output
+website/dist

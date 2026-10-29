@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="378" viewBox="0 0 900 378" role="img" aria-labelledby="t d">
+<title id="t">akamai-netstorage command line demo</title>
+<desc id="d">A terminal session: npx akamai-netstorage upload dist/app.js static/; npx akamai-netstorage ls static; npx akamai-netstorage du static; npx akamai-netstorage download static/app.js backup/. Each command prints its result, for example Request Processed.</desc>
+<style>
+.term { font: 14px ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
+@keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+.cursor { animation: blink 1s step-end infinite; }
+@keyframes s0 { 0%, 2.987% { opacity: 0; } 3.036%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s0 { animation: s0 20.09s linear infinite; }
+@keyframes s1 { 0%, 7.466% { opacity: 0; } 7.516%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s1 { animation: s1 20.09s linear infinite; }
+@keyframes c1 { 0%, 8.960% { transform: translateX(0px); animation-timing-function: steps(48, end); } 19.711%, 100% { transform: translateX(425px); } }
+.c1 { animation: c1 20.09s linear infinite; }
+@keyframes s2 { 0%, 21.453% { opacity: 0; } 21.503%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s2 { animation: s2 20.09s linear infinite; }
+@keyframes s3 { 0%, 27.924% { opacity: 0; } 27.974%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s3 { animation: s3 20.09s linear infinite; }
+@keyframes c3 { 0%, 29.418% { transform: translateX(0px); animation-timing-function: steps(31, end); } 36.361%, 100% { transform: translateX(279px); } }
+.c3 { animation: c3 20.09s linear infinite; }
+@keyframes s4 { 0%, 38.104% { opacity: 0; } 38.153%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s4 { animation: s4 20.09s linear infinite; }
+@keyframes s5 { 0%, 38.104% { opacity: 0; } 38.153%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s5 { animation: s5 20.09s linear infinite; }
+@keyframes s6 { 0%, 38.104% { opacity: 0; } 38.153%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s6 { animation: s6 20.09s linear infinite; }
+@keyframes s7 { 0%, 38.104% { opacity: 0; } 38.153%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s7 { animation: s7 20.09s linear infinite; }
+@keyframes s8 { 0%, 44.574% { opacity: 0; } 44.624%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s8 { animation: s8 20.09s linear infinite; }
+@keyframes c8 { 0%, 46.068% { transform: translateX(0px); animation-timing-function: steps(31, end); } 53.011%, 100% { transform: translateX(279px); } }
+.c8 { animation: c8 20.09s linear infinite; }
+@keyframes s9 { 0%, 54.754% { opacity: 0; } 54.803%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s9 { animation: s9 20.09s linear infinite; }
+@keyframes s10 { 0%, 61.224% { opacity: 0; } 61.274%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s10 { animation: s10 20.09s linear infinite; }
+@keyframes c10 { 0%, 62.718% { transform: translateX(0px); animation-timing-function: steps(52, end); } 74.365%, 100% { transform: translateX(460px); } }
+.c10 { animation: c10 20.09s linear infinite; }
+@keyframes s11 { 0%, 76.108% { opacity: 0; } 76.157%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s11 { animation: s11 20.09s linear infinite; }
+@keyframes s12 { 0%, 82.578% { opacity: 0; } 82.628%, 97.511% { opacity: 1; } 100% { opacity: 0; } }
+.s12 { animation: s12 20.09s linear infinite; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } .cover, .motion { display: none; } }
+</style>
+<rect width="900" height="378" rx="12" fill="#0b1220"/>
+<rect x="0.5" y="0.5" width="899" height="377" rx="12" fill="none" stroke="#24314d"/>
+<circle cx="24" cy="22" r="6" fill="#24314d"/><circle cx="44" cy="22" r="6" fill="#24314d"/><circle cx="64" cy="22" r="6" fill="#24314d"/>
+<text x="450" y="27" text-anchor="middle" fill="#8b9bb4" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13">akamai-netstorage · command line</text>
+<line x1="0" y1="42" x2="900" y2="42" stroke="#24314d"/>
+<g class="term">
+<g class="s0"><text x="24" y="64" fill="#8b9bb4"># Credentials come from NETSTORAGE_HOST, NETSTORAGE_KEYNAME and NETSTORAGE_KEY</text></g>
+<g class="s1"><text x="24" y="86"><tspan fill="#34d3b4">$</tspan><tspan x="41.2" fill="#e6edf6">npx akamai-netstorage upload dist/app.js static/</tspan></text><rect class="cover c1" x="40.2" y="70" width="425" height="22" fill="#0b1220"/></g>
+<g class="s2"><text x="24" y="108" fill="#7ee787">Request Processed.</text></g>
+<g class="s3"><text x="24" y="130"><tspan fill="#34d3b4">$</tspan><tspan x="41.2" fill="#e6edf6">npx akamai-netstorage ls static</tspan></text><rect class="cover c3" x="40.2" y="114" width="279" height="22" fill="#0b1220"/></g>
+<g class="s4"><text x="24" y="152" fill="#8b9bb4"><tspan fill="#6ea8fe">dir</tspan>           1795089  2026-10-29T04:00:00Z  images/</text></g>
+<g class="s5"><text x="24" y="174" fill="#8b9bb4"><tspan fill="#e6edf6">file</tspan>             9120  2026-10-29T05:00:00Z  app.css</text></g>
+<g class="s6"><text x="24" y="196" fill="#8b9bb4"><tspan fill="#e6edf6">file</tspan>            48213  2026-10-29T05:01:00Z  app.js</text></g>
+<g class="s7"><text x="24" y="218" fill="#8b9bb4"><tspan fill="#c49bff">symlink</tspan>                2026-10-29T05:01:00Z  latest.js -&gt; app.js</text></g>
+<g class="s8"><text x="24" y="240"><tspan fill="#34d3b4">$</tspan><tspan x="41.2" fill="#e6edf6">npx akamai-netstorage du static</tspan></text><rect class="cover c8" x="40.2" y="224" width="279" height="22" fill="#0b1220"/></g>
+<g class="s9"><text x="24" y="262" fill="#7ee787">14 files, 1852422 bytes in /123456/static</text></g>
+<g class="s10"><text x="24" y="284"><tspan fill="#34d3b4">$</tspan><tspan x="41.2" fill="#e6edf6">npx akamai-netstorage download static/app.js backup/</tspan></text><rect class="cover c10" x="40.2" y="268" width="460" height="22" fill="#0b1220"/></g>
+<g class="s11"><text x="24" y="306" fill="#7ee787">Saved backup/app.js</text></g>
+<g class="s12"><text x="24" y="328"><tspan fill="#34d3b4">$</tspan><tspan x="41.2" fill="#e6edf6"></tspan></text><rect class="cursor" x="41.2" y="314" width="8" height="17" fill="#e6edf6"/></g>
+</g>
+</svg>

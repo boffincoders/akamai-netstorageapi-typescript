@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" role="img" aria-labelledby="t d">
+<title id="t">What happens on every call</title>
+<desc id="d">Your code calls a method such as statAsync. The client builds the request path and X-Akamai-ACS-Action header, signs it with HMAC-SHA256 in the X-Akamai-ACS-Auth-Data and X-Akamai-ACS-Auth-Sign headers, sends it over https or http, optionally through a proxy, to Akamai NetStorage, and parses the XML response into a typed object that your code receives.</desc>
+<style>
+@keyframes k-app { 0% { stroke: #24314d; } 0.000% { stroke: #24314d; } 1.500%, 14.000% { stroke: #34d3b4; } 16.500% { stroke: #24314d; } 88.000% { stroke: #24314d; } 89.500%, 97.500% { stroke: #34d3b4; } 100.000% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.k-app { animation: k-app 10s ease-in-out infinite; }
+@keyframes a-1 { 0% { stroke: #24314d; } 10.000% { stroke: #24314d; } 11.500%, 18.000% { stroke: #34d3b4; } 20.500% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.a-1 { animation: a-1 10s ease-in-out infinite; }
+@keyframes k-build { 0% { stroke: #24314d; } 14.000% { stroke: #24314d; } 15.500%, 30.000% { stroke: #34d3b4; } 32.500% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.k-build { animation: k-build 10s ease-in-out infinite; }
+@keyframes a-2 { 0% { stroke: #24314d; } 26.000% { stroke: #24314d; } 27.500%, 34.000% { stroke: #34d3b4; } 36.500% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.a-2 { animation: a-2 10s ease-in-out infinite; }
+@keyframes k-sign { 0% { stroke: #24314d; } 30.000% { stroke: #24314d; } 31.500%, 46.000% { stroke: #34d3b4; } 48.500% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.k-sign { animation: k-sign 10s ease-in-out infinite; }
+@keyframes a-3 { 0% { stroke: #24314d; } 42.000% { stroke: #24314d; } 43.500%, 50.000% { stroke: #34d3b4; } 52.500% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.a-3 { animation: a-3 10s ease-in-out infinite; }
+@keyframes k-send { 0% { stroke: #24314d; } 46.000% { stroke: #24314d; } 47.500%, 60.000% { stroke: #34d3b4; } 62.500% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.k-send { animation: k-send 10s ease-in-out infinite; }
+@keyframes a-4 { 0% { stroke: #24314d; } 56.000% { stroke: #24314d; } 57.500%, 64.000% { stroke: #34d3b4; } 66.500% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.a-4 { animation: a-4 10s ease-in-out infinite; }
+@keyframes k-ns { 0% { stroke: #24314d; } 60.000% { stroke: #24314d; } 61.500%, 72.000% { stroke: #f5b544; } 74.500% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.k-ns { animation: k-ns 10s ease-in-out infinite; }
+@keyframes a-5 { 0% { stroke: #24314d; } 68.000% { stroke: #24314d; } 69.500%, 76.000% { stroke: #34d3b4; } 78.500% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.a-5 { animation: a-5 10s ease-in-out infinite; }
+@keyframes k-parse { 0% { stroke: #24314d; } 72.000% { stroke: #24314d; } 73.500%, 88.000% { stroke: #34d3b4; } 90.500% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.k-parse { animation: k-parse 10s ease-in-out infinite; }
+@keyframes a-6 { 0% { stroke: #24314d; } 84.000% { stroke: #24314d; } 85.500%, 92.000% { stroke: #34d3b4; } 94.500% { stroke: #24314d; } 100% { stroke: #24314d; } }
+.a-6 { animation: a-6 10s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } .cover, .motion { display: none; } }
+</style>
+<defs><marker id="head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8b9bb4"/></marker></defs>
+<rect width="1000" height="500" rx="14" fill="#0b1220"/>
+<rect x="0.5" y="0.5" width="999" height="499" rx="14" fill="none" stroke="#24314d"/>
+<text x="20" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#e6edf6">What happens on every call</text>
+<text x="20" y="64" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" fill="#8b9bb4">The client builds, signs and sends the request, then turns NetStorage's XML into a typed result.</text>
+<path class="a-1" d="M 195 159 H 209" fill="none" stroke="#24314d" stroke-width="2" marker-end="url(#head)"/>
+<path class="a-2" d="M 393 159 H 407" fill="none" stroke="#24314d" stroke-width="2" marker-end="url(#head)"/>
+<path class="a-3" d="M 591 159 H 605" fill="none" stroke="#24314d" stroke-width="2" marker-end="url(#head)"/>
+<path class="a-4" d="M 789 159 H 803" fill="none" stroke="#24314d" stroke-width="2" marker-end="url(#head)"/>
+<path class="a-5" d="M 896 237 V 366 H 791" fill="none" stroke="#24314d" stroke-width="2" marker-end="url(#head)"/>
+<path class="a-6" d="M 211 366 H 104 V 241" fill="none" stroke="#24314d" stroke-width="2" marker-end="url(#head)"/>
+<g>
+<rect class="k-app" x="16" y="84" width="176" height="150" rx="10" fill="#111a2e" stroke="#24314d" stroke-width="1.5"/>
+<text x="30" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#e6edf6">Your code</text>
+<line x1="28" y1="122" x2="180" y2="122" stroke="#24314d"/>
+<text x="30" y="142" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#6ea8fe">await ns.statAsync(</text><text x="30" y="160" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#f5b544">  &quot;/123456/app.js&quot;</text><text x="30" y="178" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#6ea8fe">)</text><text x="30" y="196" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#8b9bb4">or the callback form</text>
+</g>
+<g>
+<rect class="k-build" x="214" y="84" width="176" height="150" rx="10" fill="#111a2e" stroke="#24314d" stroke-width="1.5"/>
+<circle cx="234" cy="105" r="10" fill="#34d3b4"/><text x="234" y="109" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#0b1220">1</text><text x="252" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#e6edf6">Build the request</text>
+<line x1="226" y1="122" x2="378" y2="122" stroke="#24314d"/>
+<text x="228" y="142" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">GET /123456/app.js</text><text x="228" y="160" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#8b9bb4">X-Akamai-ACS-Action:</text><text x="228" y="178" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">version=1&amp;action=stat</text><text x="228" y="196" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">&amp;format=xml</text>
+</g>
+<g>
+<rect class="k-sign" x="412" y="84" width="176" height="150" rx="10" fill="#111a2e" stroke="#24314d" stroke-width="1.5"/>
+<circle cx="432" cy="105" r="10" fill="#34d3b4"/><text x="432" y="109" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#0b1220">2</text><text x="450" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#e6edf6">Sign it</text>
+<line x1="424" y1="122" x2="576" y2="122" stroke="#24314d"/>
+<text x="426" y="142" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#8b9bb4">X-Akamai-ACS-Auth-Data</text><text x="426" y="160" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">5, &lt;time&gt;, &lt;id&gt;, &lt;key&gt;</text><text x="426" y="178" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#8b9bb4">X-Akamai-ACS-Auth-Sign</text><text x="426" y="196" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">HMAC-SHA256, base64</text>
+</g>
+<g>
+<rect class="k-send" x="610" y="84" width="176" height="150" rx="10" fill="#111a2e" stroke="#24314d" stroke-width="1.5"/>
+<circle cx="630" cy="105" r="10" fill="#34d3b4"/><text x="630" y="109" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#0b1220">3</text><text x="648" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#e6edf6">Send it</text>
+<line x1="622" y1="122" x2="774" y2="122" stroke="#24314d"/>
+<text x="624" y="142" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">https when ssl: true,</text><text x="624" y="160" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">otherwise http</text><text x="624" y="178" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#8b9bb4">through your proxy</text><text x="624" y="196" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#8b9bb4">when proxy is set</text>
+</g>
+<g>
+<rect class="k-ns" x="808" y="84" width="176" height="150" rx="10" fill="#111a2e" stroke="#24314d" stroke-width="1.5"/>
+<text x="822" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#e6edf6">Akamai NetStorage</text>
+<line x1="820" y1="122" x2="972" y2="122" stroke="#24314d"/>
+<text x="822" y="142" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#7ee787">200 OK</text><text x="822" y="160" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">&lt;stat directory=</text><text x="822" y="178" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">  &quot;/123456&quot;&gt;</text><text x="822" y="196" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">&lt;file name=&quot;app.js&quot; …/&gt;</text>
+</g>
+<g>
+<rect class="k-parse" x="214" y="300" width="572" height="132" rx="10" fill="#111a2e" stroke="#24314d" stroke-width="1.5"/>
+<circle cx="234" cy="321" r="10" fill="#34d3b4"/><text x="234" y="325" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#0b1220">4</text><text x="252" y="326" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600" fill="#e6edf6">Parse the XML into a typed object</text>
+<line x1="226" y1="338" x2="774" y2="338" stroke="#24314d"/>
+<text x="228" y="358" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#c49bff">StatResponse</text><text x="228" y="376" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">{ stat: { attribs: { directory: &quot;/123456&quot; },</text><text x="228" y="394" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#e6edf6">         file: [{ type: &quot;file&quot;, name: &quot;app.js&quot;, size: &quot;48213&quot;, md5: &quot;e4d9…&quot; }] } }</text>
+</g>
+<text x="116" y="330" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">resolves with</text>
+<text x="116" y="348" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">the typed result</text>
+<text x="20" y="478" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12.5" fill="#8b9bb4">Callbacks receive the same body plus the HTTP response: <tspan font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" fill="#e6edf6">ns.stat(path, (err, res, body) =&gt; …)</tspan></text>
+</svg>

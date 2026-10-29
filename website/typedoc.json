@@ -1,0 +1,13 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "extends": ["../typedoc.json"],
+  "out": "dist/api",
+  "readme": "none",
+  "logLevel": "Warn",
+  "navigationLinks": {
+    "Guide": "../guide/",
+    "Playground": "../playground/",
+    "GitHub": "https://github.com/boffincoders/akamai-netstorageapi-typescript",
+    "npm": "https://www.npmjs.com/package/ts-netstorageapi-akamai"
+  }
+}

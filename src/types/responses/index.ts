@@ -1,14 +1,14 @@
 export { DeleteResponse } from "./delete.types";
-export { DirResponse } from "./dir.types";
+export { DirResponse, DirResponseAttribs, DirResponseFile, DirResponseStat } from "./dir.types";
 export { DownloadResponse } from "./download.types";
 export { DownloadBufferResponse } from "./downloadBuffer.types";
-export { DuResponse } from "./du.types";
-export { ListResponse } from "./list.types";
+export { DuResponse, DuResponseAttribs, DuResponseDu, DuResponseDuInfo } from "./du.types";
+export { ListResponse, ListResponseFile, ListResponseList, ListResponseResume } from "./list.types";
 export { MkdirResponse } from "./mkdir.types";
 export { MtimeResponse } from "./mtime.types";
 export { QuickDeleteResponse } from "./quick-delete.types";
 export { RenameResponse } from "./rename.types";
 export { RmdirResponse } from "./rmdir.types";
-export { StatResponse } from "./stat.types";
+export { StatResponse, StatResponseAttribs, StatResponseFile, StatResponseStat } from "./stat.types";
 export { SymlinkResponse } from "./symlink.types";
 export { UploadResponse } from "./upload.types";
