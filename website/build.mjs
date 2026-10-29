@@ -104,7 +104,7 @@ ${methodLinks}
 const pages = [];
 const searchIndex = [];
 
-function page({ file, title, description, body, current, docs = true, extraHead = "", scripts = [] }) {
+function page({ file, title, description, body, current, docs = true, extraHead = "", scripts = [], base = "", noindex = false }) {
   const depth = file.split("/").length - 1;
   const r = depth ? "../".repeat(depth) : "./";
   const canonical = site.url + file.replace(/index\.html$/, "");
@@ -113,8 +113,8 @@ function page({ file, title, description, body, current, docs = true, extraHead 
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(fullTitle)}</title>
+${base ? `<base href="${base}">\n` : ""}<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(fullTitle)}</title>${noindex ? '\n<meta name="robots" content="noindex">' : ""}
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${canonical}">
 <meta property="og:type" content="website">
@@ -156,7 +156,7 @@ ${scripts.map((s) => `<script src="${r}${s}"></script>`).join("\n")}
 </html>
 `;
   pages.push({ file, html });
-  if (title) searchIndex.push({ title, text: description, url: file.replace(/index\.html$/, "") });
+  if (title && !noindex) searchIndex.push({ title, text: description, url: file.replace(/index\.html$/, "") });
 }
 
 const figure = (r, name, alt) => `<figure class="figure"><img src="${r}assets/${name}" alt="${esc(alt)}" loading="lazy"></figure>`;
@@ -174,7 +174,7 @@ const comparison = table(
     ["<code>npm audit</code> on a fresh install (Oct 2026)", "2 moderate (xml2js prototype pollution)", "0"],
     ["Install size", "12 packages, about 1,200 files", "8 packages, about 140 files"],
     ["Command line tool", "No", "<code>akamai-netstorage</code>"],
-    ["Latest release", "March 2018", "Maintained, tested on Node 18, 20 and 22 in CI"],
+    ["Latest release", "March 2018", "Maintained, tested on Node 18, 20, 22 and 24 in CI"],
   ]
 );
 
@@ -228,7 +228,7 @@ page({
 <p class="lead">A TypeScript client and CLI for the NetStorage HTTP API. Upload and download files or buffers, browse and manage directories, with promises or callbacks and a type for every response.</p>
 <div class="hero-actions"><a class="btn primary" href="./basics/">New to NetStorage?</a><a class="btn" href="./guide/">Get started</a><a class="btn" href="./playground/">Open the playground</a><a class="btn" href="./api/">API reference</a></div>
 <div class="install"><span>npm install ts-netstorageapi-akamai</span><button type="button" data-copy="npm install ts-netstorageapi-akamai">Copy</button></div>
-<div class="badges"><span>CommonJS and ESM</span><span>2 runtime dependencies</span><span>npm audit: 0</span><span>Tested on Node 18, 20, 22</span></div>
+<div class="badges"><span>CommonJS and ESM</span><span>2 runtime dependencies</span><span>npm audit: 0</span><span>Tested on Node 18–24</span></div>
 </section>
 <section class="home-section">${quickStart}</section>
 <section class="home-section">
@@ -418,7 +418,7 @@ ${pre(`import Netstorage, { AkamaiConfig, DirResponse, DirResponseFile, StatResp
 const files: DirResponseFile[] = (await ns.dirAsync("/123456")).stat.file;`)}
 <p>Every type is listed in the <a href="../api/">API reference</a>.</p>
 <h2 id="node">Node support</h2>
-<p>Node.js 18, 20 and 22 are tested in CI. The package is CommonJS and works with <code>require()</code> and <code>import</code>.</p>`,
+<p>Node.js 18, 20, 22 and 24 are tested in CI. The package is CommonJS and works with <code>require()</code> and <code>import</code>.</p>`,
 });
 
 // ----------------------------------------------------------------- methods
@@ -662,11 +662,13 @@ ${table(["Change", "Who could notice"], [
 
 page({
   file: "404.html",
-  title: "",
+  title: "Page not found",
   description: "Page not found.",
   docs: false,
-  // Served for any missing path, so links resolve from the site root.
-  extraHead: '<base href="/akamai-netstorageapi-typescript/">',
+  // GitHub Pages serves this for any missing path, so every relative link must resolve
+  // from the site root. The <base> element has to come before the first relative URL.
+  base: "/akamai-netstorageapi-typescript/",
+  noindex: true,
   body: `<section class="hero"><h1>Page not found</h1><p class="lead">That page does not exist. Try the <a href="./">home page</a> or press <kbd>/</kbd> to search.</p></section>`,
 });
 

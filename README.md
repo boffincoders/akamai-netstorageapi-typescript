@@ -72,7 +72,7 @@ Akamai's own Node.js client, [`netstorageapi`](https://www.npmjs.com/package/net
 | `npm audit` on a fresh install (Oct 2026) | 2 moderate (xml2js prototype pollution)         | 0                                                      |
 | Install size                           | 12 packages, about 1,200 files                     | 8 packages, about 140 files                            |
 | Command line tool                      | No                                                 | `akamai-netstorage`                                    |
-| Latest release                         | March 2018                                         | Maintained, tested on Node 18, 20 and 22 in CI         |
+| Latest release                         | March 2018                                         | Maintained, tested on Node 18, 20, 22 and 24 in CI     |
 
 Both send the same signed requests (HMAC-SHA256, version 5) and return the same parsed responses, so switching does not change what NetStorage sees.
 
@@ -85,7 +85,7 @@ Both send the same signed requests (HMAC-SHA256, version 5) and return the same 
 - **CommonJS and ESM**: works with `import` in TypeScript and bundlers, and with `require()`.
 - **A CLI**: `npx ts-netstorageapi-akamai ls /123456` (see [Command line](#command-line)).
 - **Small footprint**: two direct runtime dependencies (`xml2js`, `https-proxy-agent`, the latter loaded only when you set a proxy).
-- **Maintenance**: tests against a mock NetStorage server on Node 18, 20 and 22, and dependency updates.
+- **Maintenance**: tests against a mock NetStorage server on Node 18, 20, 22 and 24, and dependency updates.
 
 ## Configuration
 
@@ -387,7 +387,7 @@ Hover any method in your editor for its documentation. An HTML API reference can
 
 ## Node support
 
-Node.js 18, 20 and 22 are tested in CI. The package is CommonJS and can be loaded with `require()` or `import`.
+Node.js 18, 20, 22 and 24 are tested in CI. The package is CommonJS and can be loaded with `require()` or `import`.
 
 ## Upgrading from 1.0.x
 
@@ -423,7 +423,7 @@ The only differences a 1.0.4 user could observe are fixes to failure cases or de
 | A connection dropped mid-response reports an `ECONNRESET` error.            | Code that hit a dropped connection. Before, the promise never settled and the callback was never called. |
 | `lodash` is no longer installed with this package.                          | Apps that `require("lodash")` without listing it in their own `package.json`. Run `npm install lodash`. |
 | `src/` and `docs/` are no longer in the npm tarball.                        | Only imports of `ts-netstorageapi-akamai/src/...`. Import from the package root or `dist/` instead. |
-| `"engines": { "node": ">=18" }` is declared.                                 | Installs on Node 16 or older with npm's `engine-strict` setting on. Node 18, 20 and 22 are tested. |
+| `"engines": { "node": ">=18" }` is declared.                                 | Installs on Node 16 or older with npm's `engine-strict` setting on. Node 18, 20, 22 and 24 are tested. |
 
 Before release, the whole test suite also ran against the published 1.0.4 code. The results matched except for the fixes listed above. See the [changelog](CHANGELOG.md) for details.
 

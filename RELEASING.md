@@ -122,8 +122,8 @@ gh api -X POST repos/boffincoders/akamai-netstorageapi-typescript/pages -f build
 gh pr create --base master --head maint/1.1.0 --title "Release 1.1.0" --body-file CHANGELOG.md
 ```
 
-- **What it does:** opens a pull request (you can also use the GitHub website). CI runs the build and tests on Node 18, 20 and 22.
-- **Check it worked:** all three CI jobs are green on the pull request.
+- **What it does:** opens a pull request (you can also use the GitHub website). CI runs the build and tests on Node 18, 20, 22 and 24.
+- **Check it worked:** all four CI jobs are green on the pull request.
 
 ## 14. Merge without a merge commit
 
