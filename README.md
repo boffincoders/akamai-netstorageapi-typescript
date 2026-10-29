@@ -10,7 +10,7 @@ Upload and download files or in-memory buffers, list and inspect directories, an
 [![node: >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](#node-support)
 [![license: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Maintained by [Boffin Coders](https://boffincoders.com/open-source/akamai-netstorage-typescript?utm_source=npm&utm_medium=readme&utm_campaign=ts-netstorageapi-akamai).
+<img src="https://raw.githubusercontent.com/boffincoders/akamai-netstorageapi-typescript/master/assets/brand/bc-gold.png" alt="Boffin Coders logo" width="28" height="28"> Maintained by [Boffin Coders](https://boffincoders.com/open-source/akamai-netstorage-typescript?utm_source=npm&utm_medium=readme&utm_campaign=ts-netstorageapi-akamai).
 
 **[Documentation](https://boffincoders.github.io/akamai-netstorageapi-typescript/)** · [Playground](https://boffincoders.github.io/akamai-netstorageapi-typescript/playground/) · [API reference](https://boffincoders.github.io/akamai-netstorageapi-typescript/api/)
 
@@ -56,6 +56,7 @@ console.log(stat.file[0].size, stat.file[0].md5);
 - [Node support](#node-support)
 - [Upgrading from 1.0.x](#upgrading-from-10x)
 - [Contributing](#contributing)
+- [About Boffin Coders](#about-boffin-coders)
 - [Credits and license](#credits-and-license)
 
 ## Why this package
@@ -438,6 +439,12 @@ npm run build && npm test
 ```
 
 Tests run against a local mock NetStorage server; no Akamai account is needed. The README illustrations in `assets/` are generated with `npm run assets` (after a build), and the terminal demo is real output from the CLI. The documentation site is built with `npm run site` into `website/dist` and published to GitHub Pages on every push to master. Please open issues and pull requests on [GitHub](https://github.com/boffincoders/akamai-netstorageapi-typescript).
+
+## About Boffin Coders
+
+[Boffin Coders](https://boffincoders.com/?utm_source=npm&utm_medium=readme&utm_campaign=ts-netstorageapi-akamai) designs and builds websites, web applications and mobile apps for businesses and agencies, and maintains this package as open source. Need Akamai NetStorage uploads, a media pipeline or a Node.js backend built for you? [Hire Node.js developers](https://boffincoders.com/hire/nodejs-developers?utm_source=npm&utm_medium=readme&utm_campaign=ts-netstorageapi-akamai) or [talk to us](https://boffincoders.com/contact-us?utm_source=npm&utm_medium=readme&utm_campaign=ts-netstorageapi-akamai).
+
+More open source by Boffin Coders: [fundamental-analysis](https://boffincoders.github.io/fundamental-analysis/) · [all projects on GitHub](https://github.com/boffincoders).
 
 ## Credits and license
 

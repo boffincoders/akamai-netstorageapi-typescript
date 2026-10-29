@@ -20,19 +20,26 @@ const outDir = path.join(root, "assets");
 const cli = path.join(root, "dist/cli.js");
 if (!fs.existsSync(cli)) throw new Error("dist/cli.js is missing. Run `npm run build` first.");
 
+// Boffin Coders brand palette (boffincoders.com): gold on near-black.
 const C = {
-  bg: "#0b1220",
-  panel: "#111a2e",
-  panelHi: "#16223b",
-  border: "#24314d",
-  text: "#e6edf6",
-  muted: "#8b9bb4",
-  teal: "#34d3b4",
+  bg: "#0d0d0d",
+  panel: "#1a1a1a",
+  panelHi: "#222222",
+  border: "#2a2a2a",
+  text: "#ffffff",
+  muted: "#a3a3a3",
+  gold: "#d4a012",
   blue: "#6ea8fe",
-  amber: "#f5b544",
   purple: "#c49bff",
-  green: "#7ee787",
+  green: "#4ade80",
 };
+
+// Small Boffin Coders logo, embedded so it shows wherever the SVG is displayed.
+const LOGO = `data:image/png;base64,${fs.readFileSync(path.join(here, "boffin-mark.png")).toString("base64")}`;
+function brand(right, cy, size = 26) {
+  return `<g><image href="${LOGO}" x="${right - size}" y="${cy - size / 2}" width="${size}" height="${size}"/>
+<text x="${right - size - 8}" y="${cy + 4.5}" text-anchor="end" font-family="${SANS}" font-size="12.5" font-weight="600" fill="${C.muted}">by Boffin Coders</text></g>`;
+}
 const MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace";
 const SANS = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
 
@@ -166,7 +173,7 @@ function terminalSvg(session) {
       content = `<text x="${padX}" y="${y}" fill="${C.muted}">${pre(line.text)}</text>`;
     } else if (line.kind === "command" || line.kind === "prompt") {
       const textX = padX + 2 * charW;
-      content = `<text x="${padX}" y="${y}"><tspan fill="${C.teal}">$</tspan><tspan x="${textX}" fill="${C.text}">${pre(line.text)}</tspan></text>`;
+      content = `<text x="${padX}" y="${y}"><tspan fill="${C.gold}">$</tspan><tspan x="${textX}" fill="${C.text}">${pre(line.text)}</tspan></text>`;
       if (line.kind === "command") {
         const width = Math.ceil(line.text.length * charW) + 12;
         const cover = `c${i}`;
@@ -192,6 +199,7 @@ function terminalSvg(session) {
 <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="12" fill="none" stroke="${C.border}"/>
 <circle cx="24" cy="22" r="6" fill="${C.border}"/><circle cx="44" cy="22" r="6" fill="${C.border}"/><circle cx="64" cy="22" r="6" fill="${C.border}"/>
 <text x="${W / 2}" y="27" text-anchor="middle" fill="${C.muted}" font-family="${SANS}" font-size="13">akamai-netstorage · command line</text>
+${brand(W - 16, 21, 20)}
 <line x1="0" y1="42" x2="${W}" y2="42" stroke="${C.border}"/>
 <g class="term">
 ${rows.join("\n")}
@@ -257,7 +265,7 @@ function howItWorksSvg() {
   };
   const css = [];
   for (const [cls, spans] of Object.entries(windows)) {
-    const on = cls === "k-ns" ? C.amber : C.teal;
+    const on = cls === "k-ns" ? C.blue : C.gold;
     const frames = [`0% { stroke: ${C.border}; }`];
     for (const [from, to] of spans) {
       frames.push(
@@ -284,35 +292,35 @@ function howItWorksSvg() {
   const cards = [
     card({ x: cx(0), y: y1, w: cw, h: h1, title: "Your code", color: C.blue, cls: "k-app", lines: [
       { text: "await ns.statAsync(", color: C.blue },
-      { text: '  "/123456/app.js"', color: C.amber },
+      { text: '  "/123456/app.js"', color: C.gold },
       { text: ")", color: C.blue },
       { text: "or the callback form", color: C.muted },
     ] }),
-    card({ x: cx(1), y: y1, w: cw, h: h1, n: 1, title: "Build the request", color: C.teal, cls: "k-build", lines: [
+    card({ x: cx(1), y: y1, w: cw, h: h1, n: 1, title: "Build the request", color: C.gold, cls: "k-build", lines: [
       "GET /123456/app.js",
       { text: "X-Akamai-ACS-Action:", color: C.muted },
       "version=1&action=stat",
       "&format=xml",
     ] }),
-    card({ x: cx(2), y: y1, w: cw, h: h1, n: 2, title: "Sign it", color: C.teal, cls: "k-sign", lines: [
+    card({ x: cx(2), y: y1, w: cw, h: h1, n: 2, title: "Sign it", color: C.gold, cls: "k-sign", lines: [
       { text: "X-Akamai-ACS-Auth-Data", color: C.muted },
       "5, <time>, <id>, <key>",
       { text: "X-Akamai-ACS-Auth-Sign", color: C.muted },
       "HMAC-SHA256, base64",
     ] }),
-    card({ x: cx(3), y: y1, w: cw, h: h1, n: 3, title: "Send it", color: C.teal, cls: "k-send", lines: [
+    card({ x: cx(3), y: y1, w: cw, h: h1, n: 3, title: "Send it", color: C.gold, cls: "k-send", lines: [
       "https when ssl: true,",
       "otherwise http",
       { text: "through your proxy", color: C.muted },
       { text: "when proxy is set", color: C.muted },
     ] }),
-    card({ x: cx(4), y: y1, w: cw, h: h1, title: "Akamai NetStorage", color: C.amber, cls: "k-ns", lines: [
+    card({ x: cx(4), y: y1, w: cw, h: h1, title: "Akamai NetStorage", color: C.blue, cls: "k-ns", lines: [
       { text: "200 OK", color: C.green },
       '<stat directory=',
       '  "/123456">',
       '<file name="app.js" …/>',
     ] }),
-    card({ x: cx(1), y: y2, w: cw * 3 + gap * 2, h: h2, n: 4, title: "Parse the XML into a typed object", color: C.teal, cls: "k-parse", lines: [
+    card({ x: cx(1), y: y2, w: cw * 3 + gap * 2, h: h2, n: 4, title: "Parse the XML into a typed object", color: C.gold, cls: "k-parse", lines: [
       { text: "StatResponse", color: C.purple },
       '{ stat: { attribs: { directory: "/123456" },',
       '         file: [{ type: "file", name: "app.js", size: "48213", md5: "e4d9…" }] } }',
@@ -323,6 +331,7 @@ function howItWorksSvg() {
 <rect width="${W}" height="${H}" rx="14" fill="${C.bg}"/>
 <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="14" fill="none" stroke="${C.border}"/>
 <text x="${x0 + 4}" y="40" font-family="${SANS}" font-size="20" font-weight="700" fill="${C.text}">What happens on every call</text>
+${brand(W - x0 - 4, 36)}
 <text x="${x0 + 4}" y="64" font-family="${SANS}" font-size="13.5" fill="${C.muted}">The client builds, signs and sends the request, then turns NetStorage's XML into a typed result.</text>
 ${arrows.join("\n")}
 ${cards.join("\n")}
@@ -347,7 +356,7 @@ ${cards.join("\n")}
 function apiMapSvg() {
   const W = 1000;
   const groups = [
-    { title: "Transfer", color: C.teal, note: ["Buffers go straight to and from", "memory, with no temporary files."], items: [
+    { title: "Transfer", color: C.gold, note: ["Buffers go straight to and from", "memory, with no temporary files."], items: [
       ["upload", "local file → NetStorage"],
       ["uploadBuffer", "Buffer → NetStorage"],
       ["download", "NetStorage → local file"],
@@ -359,7 +368,7 @@ function apiMapSvg() {
       ["du", "file count and bytes used"],
       ["stat", "file or directory details"],
     ] },
-    { title: "Manage", color: C.amber, items: [
+    { title: "Manage", color: C.purple, items: [
       ["mkdir", "create a directory"],
       ["rmdir", "remove an empty directory"],
       ["rename", "rename or move a file"],
@@ -403,6 +412,7 @@ ${(g.note || []).map((l, i) => `<text x="${x + 16}" y="${top + panelH - 44 + i *
   const body = `<rect width="${W}" height="${H}" rx="14" fill="${C.bg}"/>
 <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="14" fill="none" stroke="${C.border}"/>
 <text x="${x0 + 4}" y="40" font-family="${SANS}" font-size="20" font-weight="700" fill="${C.text}">15 operations, each as a callback and a promise</text>
+${brand(W - x0 - 4, 36)}
 <text x="${x0 + 4}" y="64" font-family="${SANS}" font-size="13.5" fill="${C.muted}">Every method has an Async twin, and every response has a TypeScript type.</text>
 ${panels.join("\n")}
 ${snippet(x0, "Callback", `ns.stat(path, (err, res, body) =&gt; { … })`)}

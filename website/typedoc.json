@@ -1,6 +1,8 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "extends": ["../typedoc.json"],
+  "extends": [
+    "../typedoc.json"
+  ],
   "out": "dist/api",
   "readme": "none",
   "logLevel": "Warn",
@@ -9,5 +11,7 @@
     "Playground": "../playground/",
     "GitHub": "https://github.com/boffincoders/akamai-netstorageapi-typescript",
     "npm": "https://www.npmjs.com/package/ts-netstorageapi-akamai"
-  }
+  },
+  "customCss": "static/typedoc.css",
+  "customFooterHtml": "Maintained by <a href=\"https://boffincoders.com/open-source/akamai-netstorage-typescript?utm_source=docs&utm_medium=api&utm_campaign=ts-netstorageapi-akamai\">Boffin Coders</a>"
 }

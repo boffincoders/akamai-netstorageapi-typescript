@@ -6,11 +6,29 @@ export const site = {
   url: "https://boffincoders.github.io/akamai-netstorageapi-typescript/",
   repo: "https://github.com/boffincoders/akamai-netstorageapi-typescript",
   npm: "https://www.npmjs.com/package/ts-netstorageapi-akamai",
-  maintainer: "https://boffincoders.com/open-source/akamai-netstorage-typescript?utm_source=docs&utm_medium=site&utm_campaign=ts-netstorageapi-akamai",
   tagline: "TypeScript client and CLI for the Akamai NetStorage HTTP API",
+  sister: { name: "fundamental-analysis", url: "https://boffincoders.github.io/fundamental-analysis/" },
   description:
     "Typed, promise-based Node.js client and CLI for the Akamai NetStorage HTTP API: upload and download files or buffers, dir, list, du, stat, mkdir, rmdir, rename, symlink, mtime, delete and quick-delete.",
 };
+
+// The maintainer, as boffincoders.com describes itself (structured data and the home page).
+export const org = {
+  name: "Boffin Coders",
+  url: "https://boffincoders.com",
+  description: "We design and build websites, web applications and mobile apps, and run their SEO, for businesses and agencies.",
+  sameAs: [
+    "https://www.linkedin.com/company/boffincoders/",
+    "https://x.com/boffincoders",
+    "https://www.instagram.com/boffincoders/",
+    "https://www.facebook.com/boffincoders",
+    "https://github.com/boffincoders",
+  ],
+};
+
+// Links to boffincoders.com carry UTM tags so visits from these docs show up in analytics.
+export const orgLink = (path, medium) =>
+  `${org.url}${path}${path.includes("?") ? "&" : "?"}utm_source=docs&utm_medium=${medium}&utm_campaign=ts-netstorageapi-akamai`;
 
 export const groups = [
   { id: "transfer", title: "Transfer" },

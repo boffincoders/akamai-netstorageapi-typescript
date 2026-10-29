@@ -9,7 +9,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { groups, methods, site } from "./content.mjs";
+import { groups, methods, org, orgLink, site } from "./content.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -71,12 +71,14 @@ const httpPill = (h) => `<span class="pill ${h === "POST" ? "post" : h === "PUT"
 
 const icon = {
   search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
-  theme: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',
+  // Moon in light mode, sun in dark mode: the icon shows what a click switches to.
+  theme: '<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>',
   menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>',
   github: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>',
 };
 
-const mark = `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0d9488"/><ellipse cx="16" cy="10" rx="8" ry="3" fill="#e6f6f4"/><path d="M8 10v12c0 1.7 3.6 3 8 3s8-1.3 8-3V10" fill="none" stroke="#e6f6f4" stroke-width="2"/><path d="M8 16c0 1.7 3.6 3 8 3s8-1.3 8-3" fill="none" stroke="#e6f6f4" stroke-width="2"/></svg>`;
+// The gold Boffin Coders logo, the same in light and dark themes.
+const logo = (r, cls = "brand-mark") => `<img class="${cls}" src="${r}brand/bc-gold.png" alt="Boffin Coders" width="30" height="30">`;
 
 const nav = [
   ["guide/", "Guide"],
@@ -104,6 +106,47 @@ ${methodLinks}
 const pages = [];
 const searchIndex = [];
 
+const orgNode = {
+  "@type": "Organization",
+  "@id": `${org.url}/#organization`,
+  name: org.name,
+  url: org.url,
+  description: org.description,
+  logo: `${site.url}brand/bc-gold.png`,
+  sameAs: org.sameAs,
+};
+
+function structuredData(file, fullTitle, description, canonical) {
+  const graph = [orgNode];
+  if (file === "index.html") {
+    graph.push(
+      { "@type": "WebSite", "@id": `${site.url}#website`, name: site.name, url: site.url, publisher: { "@id": orgNode["@id"] } },
+      {
+        "@type": "SoftwareSourceCode",
+        name: site.name,
+        description: site.description,
+        codeRepository: site.repo,
+        programmingLanguage: "TypeScript",
+        runtimePlatform: "Node.js",
+        license: "https://opensource.org/licenses/MIT",
+        version: pkg.version,
+        author: { "@id": orgNode["@id"] },
+        maintainer: { "@id": orgNode["@id"] },
+      }
+    );
+  } else {
+    graph.push({
+      "@type": "WebPage",
+      name: fullTitle,
+      description,
+      url: canonical,
+      isPartOf: { "@id": `${site.url}#website` },
+      publisher: { "@id": orgNode["@id"] },
+    });
+  }
+  return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
+}
+
 function page({ file, title, description, body, current, docs = true, extraHead = "", scripts = [], base = "", noindex = false }) {
   const depth = file.split("/").length - 1;
   const r = depth ? "../".repeat(depth) : "./";
@@ -121,11 +164,22 @@ ${base ? `<base href="${base}">\n` : ""}<meta name="viewport" content="width=dev
 <meta property="og:title" content="${esc(fullTitle)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${canonical}">
-<meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<meta property="og:site_name" content="${esc(site.name)} by Boffin Coders">
+<meta property="og:image" content="${site.url}og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(site.name)}: ${esc(site.tagline)}, by Boffin Coders">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${site.url}og.png">
+<meta name="author" content="Boffin Coders">
+${noindex ? "" : structuredData(file, fullTitle, description, canonical)}
+<meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="ns-root" content="${r}">
-<link rel="icon" href="${r}favicon.svg" type="image/svg+xml">
+<link rel="icon" href="${r}favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
 <link rel="stylesheet" href="${r}style.css">
 <script>try{var t=localStorage.getItem("ns-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 ${extraHead}
@@ -134,7 +188,7 @@ ${extraHead}
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
 <button class="icon-btn menu-btn" type="button" data-menu aria-label="Menu" aria-expanded="false">${icon.menu}</button>
-<a class="brand" href="${r}">${mark}<span>${site.name}</span></a>
+<a class="brand" href="${r}" aria-label="${site.name} home">${logo(r)}<span class="brand-text"><span class="brand-name">${site.name}</span><span class="brand-by">by Boffin Coders</span></span></a>
 <nav class="topnav" aria-label="Main">${nav.map(([href, label]) => `<a href="${r}${href}"${current?.startsWith(href) ? ' aria-current="page"' : ""}>${label}</a>`).join("")}</nav>
 <div class="top-actions">
 <button class="search-btn" type="button" data-search aria-label="Search">${icon.search}<span class="label">Search</span><kbd>⌘K</kbd></button>
@@ -144,7 +198,9 @@ ${extraHead}
 </header>
 ${docs ? `<div class="layout">${sidebar(r, current)}<main id="main" class="content">${body}</main></div>` : `<main id="main">${body}</main>`}
 <footer>
-<p>${esc(site.name)} ${esc(pkg.version)} · MIT licence · Maintained by <a href="${site.maintainer}">Boffin Coders</a> · <a href="${site.repo}">GitHub</a> · <a href="${site.npm}">npm</a></p>
+<a class="footer-brand" href="${orgLink("/", "footer")}">${logo(r, "footer-logo")}<span>Built and maintained by Boffin Coders</span></a>
+<p>${esc(site.name)} ${esc(pkg.version)} · MIT licence · <a href="${site.repo}">GitHub</a> · <a href="${site.npm}">npm</a></p>
+<p>More open source by Boffin Coders: <a href="${site.sister.url}">${site.sister.name}</a> · <a href="https://github.com/boffincoders">all projects on GitHub</a></p>
 <p>Based on Akamai's open-source <a href="https://www.npmjs.com/package/netstorageapi">netstorageapi</a> by Astin Choi.</p>
 <p>An independent open-source project, not affiliated with or endorsed by Akamai Technologies, Inc. Akamai and NetStorage are trademarks of Akamai Technologies, Inc.</p>
 </footer>
@@ -210,18 +266,7 @@ page({
   title: "",
   description: site.description,
   docs: false,
-  extraHead: `<script type="application/ld+json">${JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "SoftwareSourceCode",
-    name: site.name,
-    description: site.description,
-    codeRepository: site.repo,
-    programmingLanguage: "TypeScript",
-    runtimePlatform: "Node.js",
-    license: "https://opensource.org/licenses/MIT",
-    version: pkg.version,
-    author: { "@type": "Organization", name: "Boffin Coders", url: "https://boffincoders.com" },
-  })}</script>`,
+
   body: `<section class="hero">
 <p class="eyebrow">Open source · MIT · Node.js 18+</p>
 <h1>Akamai NetStorage, <span class="accent">typed</span>.</h1>
@@ -257,6 +302,14 @@ ${comparison}
 <h2>Fifteen operations</h2>
 <p class="lead">Every NetStorage action the client supports, each with its own page.</p>
 ${groups.map((g) => `<h3>${g.title}</h3><div class="grid">${methods.filter((m) => m.group === g.id).map((m) => `<a class="card" href="./methods/${m.name}/"><h3 class="mono">${m.name} ${httpPill(m.http)}</h3><p>${inline(m.summary)}</p></a>`).join("")}</div>`).join("")}
+<section class="built-by">
+<img src="./brand/bc-gold.png" alt="Boffin Coders logo" width="56" height="56">
+<div>
+<h2>Built by Boffin Coders</h2>
+<p>Boffin Coders designs and builds websites, web applications and mobile apps for businesses and agencies, and maintains this package as open source. Need Akamai NetStorage uploads, a media pipeline or a Node.js backend built for you?</p>
+<p class="built-by-actions"><a class="btn primary" href="${orgLink("/hire/nodejs-developers", "home")}">Hire Node.js developers</a><a class="btn" href="${orgLink("/contact-us", "home")}">Talk to us</a><a class="btn" href="${orgLink("/", "home")}">boffincoders.com</a></p>
+</div>
+</section>
 <div class="callout"><p><strong>Upgrading from 1.0.x?</strong> Version 1.1.0 is a drop-in upgrade: your code keeps working without changes. <a href="./upgrade/">See what changed →</a></p></div>
 </section>`,
 });
@@ -683,11 +736,38 @@ for (const p of pages) {
 for (const f of fs.readdirSync(path.join(here, "static"))) fs.copyFileSync(path.join(here, "static", f), path.join(out, f));
 fs.mkdirSync(path.join(out, "assets"));
 for (const f of ["how-it-works.svg", "api-map.svg", "cli-demo.svg"]) fs.copyFileSync(path.join(root, "assets", f), path.join(out, "assets", f));
+fs.mkdirSync(path.join(out, "brand"));
+for (const f of ["bc-gold.png"]) fs.copyFileSync(path.join(root, "assets/brand", f), path.join(out, "brand", f));
 fs.writeFileSync(path.join(out, "search-index.js"), `window.NS_SEARCH=${JSON.stringify([
   ...searchIndex,
   { title: "API reference", text: "Every class, method and type, generated from the source with TypeDoc.", url: "api/" },
 ])};\n`);
 fs.writeFileSync(path.join(out, ".nojekyll"), "");
+fs.writeFileSync(
+  path.join(out, "llms.txt"),
+  `# ${site.name}
+
+> ${site.description}
+
+Maintained by Boffin Coders (${org.url}). ${org.description}
+
+## Docs
+
+- [NetStorage basics](${site.url}basics/): endpoint, upload accounts and keys, request signing, limits and common errors
+- [Guide](${site.url}guide/): install, configure, promises and callbacks, responses and errors, proxy
+- [Methods](${site.url}methods/): ${methods.map((m) => m.name).join(", ")}
+- [Command line](${site.url}cli/): the akamai-netstorage CLI
+- [Migrating from netstorageapi](${site.url}migrate/)
+- [API reference](${site.url}api/)
+
+## Links
+
+- npm: ${site.npm}
+- Source: ${site.repo}
+- Maintainer: ${org.url}
+- More open source by Boffin Coders: ${site.sister.url}
+`
+);
 fs.writeFileSync(path.join(out, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${site.url}sitemap.xml\n`);
 const urls = [...pages.filter((p) => p.file !== "404.html").map((p) => p.file.replace(/index\.html$/, "")), "api/"];
 fs.writeFileSync(
